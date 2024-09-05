@@ -1,0 +1,57 @@
+<!-- Container for the settings page -->
+<div class="ayarlama-container">
+  <!-- Header for the settings page -->
+  <h2>Ayarlama Sayfası</h2>
+
+  <!-- Section for adding special days -->
+  <div>
+    <h3>Özel Gün Ekle</h3>
+
+    <!-- Input for special day date -->
+    <label for="specialDayDate">Tarih:</label>
+    <input id="specialDayDate" [(ngModel)]="newSpecialDay.date" type="date" />
+
+    <!-- Input for special day reason -->
+    <label for="specialDayReason">Neden:</label>
+    <input id="specialDayReason" [(ngModel)]="newSpecialDay.reason" type="text" />
+
+    <!-- Button to add the special day -->
+    <button (click)="addSpecialDay()">Özel Gün Ekle</button>
+
+    <!-- List of special days with options to delete -->
+    <ul>
+      <li *ngFor="let day of specialDays">
+        {{ day.date }} - {{ day.reason }}
+        <!-- Button to delete a special day -->
+        <button (click)="deleteSpecialDay(day.date)">Sil</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Section for adding maintenance days -->
+  <div>
+    <h3>Bakım Günü Ekle</h3>
+
+    <!-- Input for maintenance day date -->
+    <label for="maintenanceDayDate">Tarih:</label>
+    <input id="maintenanceDayDate" [(ngModel)]="newMaintenanceDay.date" type="date" />
+
+    <!-- Button to add the maintenance day -->
+    <button (click)="addMaintenanceDay()">Bakım Günü Ekle</button>
+
+    <!-- List of maintenance days with options to delete -->
+    <ul>
+      <li *ngFor="let day of maintenanceDays">
+        {{ day.date }}
+        <!-- Button to delete a maintenance day -->
+        <button (click)="deleteMaintenanceDay(day.date)">Sil</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Button to navigate back to the main page -->
+  <button (click)="goToPage2()">Ana Sayfaya Dön</button>
+
+  <!-- Button to navigate to the admin page -->
+  <div><button (click)="goToAdmin()">Admin Sayfasına Dön</button></div>
+</div>

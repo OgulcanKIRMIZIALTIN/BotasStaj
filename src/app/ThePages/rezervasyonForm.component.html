@@ -1,0 +1,88 @@
+<!-- Container for the reservation form -->
+<div class="reservation-container">
+  <!-- Header for the reservation page -->
+  <h2>Rezervasyon Sayfası</h2>
+
+  <!-- Form to submit a new reservation -->
+  <form (ngSubmit)="onSubmit()">
+
+    <!-- Input field for selecting the reservation date -->
+    <div class="form-group">
+      <label for="date">Gün:</label>
+      <input
+        type="date"
+        id="date"
+        [(ngModel)]="reservation.date"
+        name="date"
+        (change)="onDateChange()"
+        required
+      />
+    </div>
+
+    <!-- Dropdown for selecting the table number (only displayed once after date is selected) -->
+    <div *ngIf="isDateSelected" class="form-group">
+      <label for="tableNumber">Masa Numarası (Kapasite):</label>
+      <select id="tableNumber" [(ngModel)]="reservation.tableNumber" name="tableNumber" required>
+        <!-- Loop through available tables and display them as options -->
+        <option *ngFor="let table of availableTables" [value]="table">
+          Masa {{table}} ({{tableCapacities[table]}} kişi)
+        </option>
+      </select>
+    </div>
+
+    <!-- Input field for specifying the number of people -->
+    <div class="form-group">
+      <label for="numPeople">Kullanıcı Sayısı:</label>
+      <input
+        type="number"
+        id="numPeople"
+        [(ngModel)]="reservation.numPeople"
+        name="numPeople"
+        required
+        min="1"
+      />
+    </div>
+
+    <!-- Dropdown for selecting the time period (only displayed if a date is selected) -->
+    <div *ngIf="isDateSelected" class="form-group">
+      <label for="timePeriod">Zaman Dilimi:</label>
+      <select id="timePeriod" [(ngModel)]="reservation.timePeriod" name="timePeriod" required>
+        <!-- Loop through available time periods and display them as options -->
+        <option *ngFor="let period of availableTimePeriods()" [value]="period">
+          {{ period }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Input field for adding a description -->
+    <div class="form-group">
+      <label for="description">Açıklama:</label>
+      <textarea
+        id="description"
+        [(ngModel)]="reservation.description"
+        name="description"
+      ></textarea>
+    </div>
+
+    <!-- Display special days -->
+    <h3>Özel Günler</h3>
+    <ul>
+      <li *ngFor="let day of specialDays">
+        {{ day.date }} - {{ day.reason }}
+      </li>
+    </ul>
+
+    <!-- Display maintenance days -->
+    <h3>Bakım Günleri</h3>
+    <ul>
+      <li *ngFor="let day of maintenanceDays">
+        {{ day.date }}
+      </li>
+    </ul>
+
+    <!-- Buttons for submitting the form and navigating -->
+    <button type="submit">Rezervasyon Yap</button>
+    <button type="button" (click)="goToPageAnaSayfa()">Ana Sayfaya Dön</button>
+    <button type="button" (click)="goToPageRezervasyon()">Kayıtlı Rezervasyonlarım</button>
+  </form>
+</div>

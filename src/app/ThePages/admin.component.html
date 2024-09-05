@@ -1,0 +1,48 @@
+<!-- Container for the admin panel -->
+<div class="admin-container">
+  <!-- Header for the admin panel -->
+  <h2>Admin Paneli</h2>
+
+  <!-- Table displaying reservation information -->
+  <table>
+    <thead>
+      <tr>
+        <!-- Table headers -->
+        <th>Masa Numarası</th>
+        <th>İnsan sayısı</th>
+        <th>Rezervasyon Günü</th>
+        <th>Zaman Dilimi</th>
+        <th>Rezervasyon Nedeni</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Table rows populated with reservation data -->
+      <tr *ngFor="let reservation of reservations">
+        <!-- Display reservation table number -->
+        <td>{{ reservation.tableNumber }}</td>
+        <!-- Display number of people for the reservation -->
+        <td>{{ reservation.numPeople }}</td>
+        <!-- Display reservation date -->
+        <td>{{ reservation.date }}</td>
+        <!-- Display reservation time period -->
+        <td>{{ reservation.timePeriod }}</td>
+        <!-- Display reservation description -->
+        <td>{{ reservation.description }}</td>
+        <td>
+          <!-- Button to delete a reservation -->
+          <button (click)="deleteReservation(reservation)">Sil</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Button to navigate back to the reservation page -->
+  <button (click)="goToPage3()">Rezervasyon sayfasına dön</button>
+
+  <!-- Button to navigate back to the login page -->
+  <button (click)="goToPage2()">Giriş sayfasına dön</button>
+
+  <!-- Button to navigate to the settings page -->
+  <button (click)="goToAyarlar()">Ayarlama Sayfasına Git</button>
+</div>

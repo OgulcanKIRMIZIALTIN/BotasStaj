@@ -1,0 +1,120 @@
+/* Ensure full height and remove default margins */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/assets/ImagesFolder/BotasAnaSayfaArkaPlan.jpg");
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Wrapper for top content */
+.top-content {
+  text-align: center;
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+
+/* Paragraph styling */
+p {
+  font-size: 36px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  padding: 8px 15px;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+/* Header styling */
+header {
+  font-size: 28px;
+  color: white;
+  margin-bottom: 20px;
+  font-style: italic;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+/* Reservation info styling */
+.reservation-info {
+  font-size: 30px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  padding: 10px 20px;
+  text-shadow: 2px 2px 4px rgba(128, 21, 21, 0.6);
+  background-color: rgba(4, 8, 143, 0.4);
+  border-radius: 0;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+}
+
+/* Button container for centering and spacing */
+.button-container {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center;
+  gap: 120px; /* Space between buttons */
+  position: absolute;
+  bottom: 20%; /* Position from the bottom */
+  font-style: italic;
+}
+
+/* General button styling for consistency */
+button, .login-button {
+  background-color: rgba(243, 31, 8, 0.921); /* More transparent background */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 5px; /* Small margin for spacing between buttons */
+  font-style: italic;
+}
+
+/* Button hover effect */
+button:hover, .login-button:hover {
+  background-color: rgba(60, 222, 45);
+  transform: scale(1.05);
+}
+
+/* Button active effect */
+button:active, .login-button:active {
+  background-color: rgba(207, 31, 15, 0.8); /* More transparent on active */
+  transform: scale(1.02);
+}
+
+/* Admin section styling */
+h2 {
+  font-size: 30px;
+  font-weight: 600;
+  color: rgb(237, 237, 237);
+  margin: 0;
+  padding: 8px 15px;
+  text-shadow: 4px 4px 8px rgba(3, 0, 10, 0.8);
+  background-color: rgba(226, 10, 10, 0.439);
+  border-radius: 10px;
+  font-style: italic;
+}

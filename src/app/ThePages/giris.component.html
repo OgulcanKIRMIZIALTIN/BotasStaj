@@ -1,0 +1,31 @@
+<!-- Container for the login page -->
+<div class="login-container">
+  <!-- Section for user login (Upper Center) -->
+  <div class="login-section kullanici-girisi">
+    <!-- Header prompting users to click for login -->
+    <h2>Kullanıcı Girişi için buraya tıklayın</h2>
+
+    <!-- Login form -->
+    <form (ngSubmit)="onLoginPage2()" #loginForm="ngForm">
+      <!-- Input for username -->
+      <div class="form-group">
+        <label for="username">Ad:</label>
+        <!-- Bind input value to login.username and ensure it's required -->
+        <input type="text" id="username" [(ngModel)]="login.username" name="username" required />
+      </div>
+
+      <!-- Input for password -->
+      <div class="form-group">
+        <label for="password">Şifre:</label>
+        <!-- Bind input value to login.password and ensure it's required -->
+        <input type="password" id="password" [(ngModel)]="login.password" name="password" required />
+      </div>
+
+      <!-- Submit button for the login form -->
+      <button type="submit" class="login-button">Giriş</button>
+    </form>
+
+    <!-- Button to navigate back to the main page -->
+    <button (click)="goToPage1()" class="nav-button">Ana sayfaya geri dön</button>
+  </div>
+</div>

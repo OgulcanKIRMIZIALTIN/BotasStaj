@@ -1,0 +1,31 @@
+<!-- Container for the admin login page -->
+<div class="admin-login-container">
+  <!-- Header for the admin login page -->
+  <h2>Admin Girişi</h2>
+
+  <!-- Form for admin login -->
+  <form (ngSubmit)="onAdminLogin()" #adminLoginForm="ngForm">
+    <!-- Username input field -->
+    <div class="form-group">
+      <label for="adminUsername">Ad:</label>
+      <!-- Bind input value to adminLogin.username and ensure it's required -->
+      <input type="text" id="adminUsername" [(ngModel)]="adminLogin.username" name="adminUsername" required />
+    </div>
+
+    <!-- Password input field -->
+    <div class="form-group">
+      <label for="adminPassword">Şifre:</label>
+      <!-- Bind input value to adminLogin.password and ensure it's required -->
+      <input type="password" id="adminPassword" [(ngModel)]="adminLogin.password" name="adminPassword" required />
+    </div>
+
+    <!-- Submit button for the login form -->
+    <button type="submit" class="login-button">Giriş</button>
+  </form>
+
+  <!-- Navigation container for returning to the login page -->
+  <div class="nav-container">
+    <!-- Button to navigate back to the login page -->
+    <button (click)="goToGiris()" class="nav-button">Giriş Sayfasına Dön</button>
+  </div>
+</div>
