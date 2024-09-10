@@ -3,27 +3,56 @@
   <!-- Header for the settings page -->
   <h2>Ayarlama Sayfası</h2>
 
-  <!-- Section for adding special days -->
+  <!-- Section for adding holidays -->
   <div>
-    <h3>Özel Gün Ekle</h3>
+    <h3>Tatil Ekle</h3>
 
-    <!-- Input for special day date -->
-    <label for="specialDayDate">Tarih:</label>
-    <input id="specialDayDate" [(ngModel)]="newSpecialDay.date" type="date" />
+    <!-- Input for holiday date -->
+    <label for="holidayDate">Tarih:</label>
+    <input id="holidayDate" [(ngModel)]="newHoliday.date" type="date" />
 
-    <!-- Input for special day reason -->
-    <label for="specialDayReason">Neden:</label>
-    <input id="specialDayReason" [(ngModel)]="newSpecialDay.reason" type="text" />
+    <!-- Input for holiday reason -->
+    <label for="holidayReason">Neden:</label>
+    <input id="holidayReason" [(ngModel)]="newHoliday.reason" type="text" />
 
-    <!-- Button to add the special day -->
-    <button (click)="addSpecialDay()">Özel Gün Ekle</button>
+    <!-- Dropdown for selecting area (Both, Main Restaurant, Balcony) -->
+    <label for="holidayArea">Bölge:</label>
+    <select id="holidayArea" [(ngModel)]="newHoliday.area">
+      <option value="Both">Her İkisi</option>
+      <option value="Main">Ana Restoran</option>
+      <option value="Balcony">Balkon</option>
+    </select>
 
-    <!-- List of special days with options to delete -->
+    <!-- Button to add the holiday -->
+    <button (click)="addHoliday()">Tatil Ekle</button>
+
+    <!-- List of holidays with options to delete -->
+    <h4>Tüm Tatiller</h4>
+
+    <h5>Her İkisi</h5>
     <ul>
-      <li *ngFor="let day of specialDays">
-        {{ day.date }} - {{ day.reason }}
-        <!-- Button to delete a special day -->
-        <button (click)="deleteSpecialDay(day.date)">Sil</button>
+      <li *ngFor="let holiday of holidaysBoth">
+        {{ holiday.date }} - {{ holiday.reason }}
+        <!-- Button to delete a holiday -->
+        <button (click)="deleteHoliday(holiday.date, 'Both')">Sil</button>
+      </li>
+    </ul>
+
+    <h5>Ana Restoran</h5>
+    <ul>
+      <li *ngFor="let holiday of holidaysMain">
+        {{ holiday.date }} - {{ holiday.reason }}
+        <!-- Button to delete a holiday -->
+        <button (click)="deleteHoliday(holiday.date, 'Main')">Sil</button>
+      </li>
+    </ul>
+
+    <h5>Balkon</h5>
+    <ul>
+      <li *ngFor="let holiday of holidaysBalcony">
+        {{ holiday.date }} - {{ holiday.reason }}
+        <!-- Button to delete a holiday -->
+        <button (click)="deleteHoliday(holiday.date, 'Balcony')">Sil</button>
       </li>
     </ul>
   </div>
@@ -36,21 +65,54 @@
     <label for="maintenanceDayDate">Tarih:</label>
     <input id="maintenanceDayDate" [(ngModel)]="newMaintenanceDay.date" type="date" />
 
+    <!-- Dropdown for selecting area (Both, Main Restaurant, Balcony) -->
+    <label for="maintenanceArea">Bölge:</label>
+    <select id="maintenanceArea" [(ngModel)]="newMaintenanceDay.area">
+      <option value="Both">Her İkisi</option>
+      <option value="Main">Ana Restoran</option>
+      <option value="Balcony">Balkon</option>
+    </select>
+
     <!-- Button to add the maintenance day -->
     <button (click)="addMaintenanceDay()">Bakım Günü Ekle</button>
 
     <!-- List of maintenance days with options to delete -->
+    <h4>Tüm Bakım Günleri</h4>
+
+    <h5>Her İkisi</h5>
     <ul>
-      <li *ngFor="let day of maintenanceDays">
+      <li *ngFor="let day of maintenanceDaysBoth">
         {{ day.date }}
         <!-- Button to delete a maintenance day -->
-        <button (click)="deleteMaintenanceDay(day.date)">Sil</button>
+        <button (click)="deleteMaintenanceDay(day.date, 'Both')">Sil</button>
+      </li>
+    </ul>
+
+    <h5>Ana Restoran</h5>
+    <ul>
+      <li *ngFor="let day of maintenanceDaysMain">
+        {{ day.date }}
+        <!-- Button to delete a maintenance day -->
+        <button (click)="deleteMaintenanceDay(day.date, 'Main')">Sil</button>
+      </li>
+    </ul>
+
+    <h5>Balkon</h5>
+    <ul>
+      <li *ngFor="let day of maintenanceDaysBalcony">
+        {{ day.date }}
+        <!-- Button to delete a maintenance day -->
+        <button (click)="deleteMaintenanceDay(day.date, 'Balcony')">Sil</button>
       </li>
     </ul>
   </div>
-
   <!-- Button to navigate back to the main page -->
-  <button (click)="goToPage2()">Ana Sayfaya Dön</button>
+  <button (click)="goToPageAnaSayfa()">Ana Sayfaya Dön</button>
+<!-- Special button to clear all special days -->
+<div>
+  <h3>Tüm Özel Günleri Sil</h3>
+  <button (click)="clearAllSpecialDays()">Tüm Özel Günleri Sil</button>
+</div>
 
   <!-- Button to navigate to the admin page -->
   <div><button (click)="goToAdmin()">Admin Sayfasına Dön</button></div>

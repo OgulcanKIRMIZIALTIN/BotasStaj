@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+//import { BookingService } from '../booking/booking.service'; // Import the BookingService to add holidays
 
 @Component({
   selector: 'app-anaSayfa',
@@ -8,16 +9,17 @@ import { Router } from '@angular/router';
 })
 export class AnaSayfaComponent {
 
-  // Constructor to inject the Router for navigation
-  constructor(private router: Router) { }
+  // Constructor to inject the Router for navigation and services for managing holidays
+  constructor(
+    private router: Router,
 
-  // Method to navigate to the user login page
+  ) { }
   goToPage2(): void {
     this.router.navigate(['/giris']);
   }
 
-  // Method to navigate to the admin login page
   goToAdminGiris(): void {
     this.router.navigate(['/admingiris']);
   }
+
 }

@@ -1,14 +1,12 @@
 <!-- Container for the reservation form -->
 <div class="reservation-container">
-  <!-- Header for the reservation page -->
-  <h2>Rezervasyon Sayfası</h2>
+  <h2>Rezervasyon Formu</h2>
 
-  <!-- Form to submit a new reservation -->
+  <!-- Form for reservation -->
   <form (ngSubmit)="onSubmit()">
-
-    <!-- Input field for selecting the reservation date -->
+    <!-- Date selection -->
     <div class="form-group">
-      <label for="date">Gün:</label>
+      <label for="date">Rezervasyon Tarihi:</label>
       <input
         type="date"
         id="date"
@@ -19,20 +17,28 @@
       />
     </div>
 
-    <!-- Dropdown for selecting the table number (only displayed once after date is selected) -->
-    <div *ngIf="isDateSelected" class="form-group">
-      <label for="tableNumber">Masa Numarası (Kapasite):</label>
+    <!-- Area selection -->
+    <div class="form-group">
+      <label for="area">Bölge Seçimi:</label>
+      <select id="area" [(ngModel)]="selectedArea" name="selectedArea" (change)="onAreaChange()" required>
+        <option value="Main">Ana Restoran</option>
+        <option value="Balcony">Balkon</option>
+      </select>
+    </div>
+
+    <!-- Table selection (dynamic based on area and date) -->
+    <div *ngIf="isDateSelected && availableTables.length > 0" class="form-group">
+      <label for="tableNumber">Masa Numarası:</label>
       <select id="tableNumber" [(ngModel)]="reservation.tableNumber" name="tableNumber" required>
-        <!-- Loop through available tables and display them as options -->
         <option *ngFor="let table of availableTables" [value]="table">
-          Masa {{table}} ({{tableCapacities[table]}} kişi)
+          Masa {{table}} (Kapasite: {{ getTableCapacity(table) }} kişi)
         </option>
       </select>
     </div>
 
-    <!-- Input field for specifying the number of people -->
+    <!-- Number of people -->
     <div class="form-group">
-      <label for="numPeople">Kullanıcı Sayısı:</label>
+      <label for="numPeople">Kişi Sayısı:</label>
       <input
         type="number"
         id="numPeople"
@@ -43,18 +49,17 @@
       />
     </div>
 
-    <!-- Dropdown for selecting the time period (only displayed if a date is selected) -->
+    <!-- Time period selection -->
     <div *ngIf="isDateSelected" class="form-group">
       <label for="timePeriod">Zaman Dilimi:</label>
       <select id="timePeriod" [(ngModel)]="reservation.timePeriod" name="timePeriod" required>
-        <!-- Loop through available time periods and display them as options -->
         <option *ngFor="let period of availableTimePeriods()" [value]="period">
           {{ period }}
         </option>
       </select>
     </div>
 
-    <!-- Input field for adding a description -->
+    <!-- Description field -->
     <div class="form-group">
       <label for="description">Açıklama:</label>
       <textarea
@@ -64,25 +69,11 @@
       ></textarea>
     </div>
 
-    <!-- Display special days -->
-    <h3>Özel Günler</h3>
-    <ul>
-      <li *ngFor="let day of specialDays">
-        {{ day.date }} - {{ day.reason }}
-      </li>
-    </ul>
+    <!-- Submit button -->
+    <button type="submit">Rezervasyonu Onayla</button>
 
-    <!-- Display maintenance days -->
-    <h3>Bakım Günleri</h3>
-    <ul>
-      <li *ngFor="let day of maintenanceDays">
-        {{ day.date }}
-      </li>
-    </ul>
-
-    <!-- Buttons for submitting the form and navigating -->
-    <button type="submit">Rezervasyon Yap</button>
-    <button type="button" (click)="goToPageAnaSayfa()">Ana Sayfaya Dön</button>
-    <button type="button" (click)="goToPageRezervasyon()">Kayıtlı Rezervasyonlarım</button>
+    <!-- Navigation buttons -->
+    <button type="button" class="nav-button" (click)="goToPageAnaSayfa()">Ana Sayfaya Dön</button>
+    <button type="button" class="nav-button" (click)="goToPageRezervasyon()">Kayıtlı Rezervasyonlar</button>
   </form>
 </div>
