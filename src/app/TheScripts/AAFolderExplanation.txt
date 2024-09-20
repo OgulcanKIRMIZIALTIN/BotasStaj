@@ -1,1 +1,2 @@
-Sayfaların TS kodları bu sayfada
+Sayfaların Typescript kodları bu sayfada adları ilgili sayfalardan aldılar
+buradaki Typescript kodları sadece sayfa özellikleri ile ilgili ekstra özellikler başka dosyaların içinde (Mesela Booking dosyası)

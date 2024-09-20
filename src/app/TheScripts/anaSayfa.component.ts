@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-//import { BookingService } from '../booking/booking.service'; // Import the BookingService to add holidays
 
 @Component({
   selector: 'app-anaSayfa',

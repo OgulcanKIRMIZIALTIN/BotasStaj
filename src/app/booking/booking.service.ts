@@ -1,147 +1,193 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Booking } from './booking.model'; // Import the Booking model
+import { catchError, tap } from 'rxjs/operators';
+import { Booking } from './booking.model'; // Adjust the path to your Booking model if necessary
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BookingService {
-  // Keys for storing maintenance days, holidays, and reservations in local storage
-  private maintenanceStorageKey = 'maintenanceDays';
-  private holidaysStorageKey = 'holidays';
-  private reservationsStorageKey = 'reservations';
+  private apiUrl = 'http://localhost:9090/api'; // Base URL for the backend API
 
-  // BehaviorSubjects to store and update maintenance days, holidays, and reservations
-  private maintenanceDaysSubject = new BehaviorSubject<{ date: string, area: 'Both' | 'Main' | 'Balcony' }[]>([]);
-  private holidaysSubject = new BehaviorSubject<{ date: string, reason: string, area: 'Both' | 'Main' | 'Balcony' }[]>([]);
+  // BehaviorSubjects to store and manage data for maintenance days, holidays, reservations, and tables
+  private maintenanceDaysSubject = new BehaviorSubject<{ date: string; area: 'Both' | 'Main' | 'Balcony' }[]>([]);
+  private holidaysSubject = new BehaviorSubject<{ date: string; reason: string; area: 'Both' | 'Main' | 'Balcony' }[]>([]);
   private reservationsSubject = new BehaviorSubject<Booking[]>([]);
+  private tablesSubject = new BehaviorSubject<{ tableNumber: number; maxCapacity: number }[]>([]);
 
-  constructor() {
-    // Load data from local storage when the service is initialized
-    this.loadFromLocalStorage();
+  constructor(private http: HttpClient) {
+    // Load data when the service is initialized
+    this.loadMaintenanceDays();
+    this.loadHolidays();
+    this.loadReservations();
+    this.loadTables();
   }
 
   // Methods for Maintenance Days
-
-  getMaintenanceDays(): Observable<{ date: string, area: 'Both' | 'Main' | 'Balcony' }[]> {
+  getMaintenanceDays(): Observable<{ date: string; area: 'Both' | 'Main' | 'Balcony' }[]> {
     return this.maintenanceDaysSubject.asObservable();
   }
 
-  addMaintenanceDay(day: { date: string; area: 'Both' | 'Main' | 'Balcony'; }): Observable<void> {
-    const currentDays = this.maintenanceDaysSubject.getValue();
-    currentDays.push(day);
-    this.maintenanceDaysSubject.next(currentDays);
-    this.saveToLocalStorage();
-    return of();
+  loadMaintenanceDays(): void {
+    this.http.get<{ date: string; area: 'Both' | 'Main' | 'Balcony' }[]>(`${this.apiUrl}/maintenanceDays`)
+      .pipe(
+        tap(maintenanceDays => this.maintenanceDaysSubject.next(maintenanceDays)),
+        catchError(error => {
+          console.error('Error loading maintenance days:', error);
+          return of([]);
+        })
+      ).subscribe();
+  }
+
+  addMaintenanceDay(day: { date: string; area: 'Both' | 'Main' | 'Balcony' }): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/maintenanceDays`, day)
+      .pipe(
+        tap(() => this.loadMaintenanceDays()), // Reload maintenance days after adding
+        catchError(error => {
+          console.error('Error adding maintenance day:', error);
+          return of();
+        })
+      );
   }
 
   deleteMaintenanceDay(date: string, area: 'Both' | 'Main' | 'Balcony'): Observable<void> {
-    let currentDays = this.maintenanceDaysSubject.getValue();
-    currentDays = currentDays.filter(day => !(day.date === date && day.area === area));
-    this.maintenanceDaysSubject.next(currentDays);
-    this.saveToLocalStorage();
-    return of();
+    return this.http.delete<void>(`${this.apiUrl}/maintenanceDays?date=${date}&area=${area}`)
+      .pipe(
+        tap(() => this.loadMaintenanceDays()), // Reload maintenance days after deletion
+        catchError(error => {
+          console.error('Error deleting maintenance day:', error);
+          return of();
+        })
+      );
+  }
+
+  deleteAllMaintenanceDays(): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/maintenanceDays/all`)
+      .pipe(
+        tap(() => this.loadMaintenanceDays()),
+        catchError(error => {
+          console.error('Error clearing all maintenance days:', error);
+          return of();
+        })
+      );
   }
 
   // Methods for Holidays
-
-  getHolidays(): Observable<{ date: string, reason: string, area: 'Both' | 'Main' | 'Balcony' }[]> {
+  getHolidays(): Observable<{ date: string; reason: string; area: 'Both' | 'Main' | 'Balcony' }[]> {
     return this.holidaysSubject.asObservable();
   }
 
-  addHoliday(holiday: { date: string; reason: string; area: 'Both' | 'Main' | 'Balcony'; }): Observable<void> {
-    const currentHolidays = this.holidaysSubject.getValue();
-    currentHolidays.push(holiday);
-    this.holidaysSubject.next(currentHolidays);
-    this.saveToLocalStorage();
-    return of();
+  loadHolidays(): void {
+    this.http.get<{ date: string; reason: string; area: 'Both' | 'Main' | 'Balcony' }[]>(`${this.apiUrl}/holidays`)
+      .pipe(
+        tap(holidays => this.holidaysSubject.next(holidays)),
+        catchError(error => {
+          console.error('Error loading holidays:', error);
+          return of([]);
+        })
+      ).subscribe();
+  }
+
+  addHoliday(holiday: { date: string; reason: string; area: 'Both' | 'Main' | 'Balcony' }): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/holidays`, holiday)
+      .pipe(
+        tap(() => this.loadHolidays()), // Reload holidays after adding
+        catchError(error => {
+          console.error('Error adding holiday:', error);
+          return of();
+        })
+      );
   }
 
   deleteHoliday(date: string, area: 'Both' | 'Main' | 'Balcony'): Observable<void> {
-    let currentHolidays = this.holidaysSubject.getValue();
-    currentHolidays = currentHolidays.filter(holiday => !(holiday.date === date && holiday.area === area));
-    this.holidaysSubject.next(currentHolidays);
-    this.saveToLocalStorage();
-    return of();
+    return this.http.delete<void>(`${this.apiUrl}/holidays?date=${date}&area=${area}`)
+      .pipe(
+        tap(() => this.loadHolidays()), // Reload holidays after deletion
+        catchError(error => {
+          console.error('Error deleting holiday:', error);
+          return of();
+        })
+      );
+  }
+
+  deleteAllHolidays(): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/holidays/all`)
+      .pipe(
+        tap(() => this.loadHolidays()),
+        catchError(error => {
+          console.error('Error clearing all holidays:', error);
+          return of();
+        })
+      );
   }
 
   // Methods for Reservations
-
   getReservations(): Observable<Booking[]> {
     return this.reservationsSubject.asObservable();
   }
 
-  createReservation(reservation: Booking): Observable<void> {
-    const currentReservations = this.reservationsSubject.getValue();
-    reservation.id = currentReservations.length + 1; // Assign a new unique ID
-    currentReservations.push(reservation);
-    this.reservationsSubject.next(currentReservations);
-    this.saveToLocalStorage();
-    return of();
+  loadReservations(): void {
+    this.http.get<Booking[]>(`${this.apiUrl}/bookings`)
+      .pipe(
+        tap(reservations => this.reservationsSubject.next(reservations)),
+        catchError(error => {
+          console.error('Error loading reservations:', error);
+          return of([]);
+        })
+      ).subscribe();
+  }
+
+  createReservation(newBooking: Booking): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/bookings`, newBooking)
+      .pipe(
+        tap(() => this.loadReservations()), // Reload reservations after adding
+        catchError(error => {
+          console.error('Error creating reservation:', error);
+          return of();
+        })
+      );
   }
 
   deleteReservation(reservation: Booking): Observable<void> {
-    let currentReservations = this.reservationsSubject.getValue();
-    currentReservations = currentReservations.filter(r => r.id !== reservation.id);
-    this.reservationsSubject.next(currentReservations);
-    this.saveToLocalStorage();
-    return of();
+    return this.http.delete<void>(`${this.apiUrl}/bookings/${reservation.id}`)
+      .pipe(
+        tap(() => this.loadReservations()), // Reload reservations after deletion
+        catchError(error => {
+          console.error('Error deleting reservation:', error);
+          return of();
+        })
+      );
   }
 
-  // Method to Clear All Special Days
-
-  clearAllSpecialDays(): void {
-    localStorage.removeItem(this.maintenanceStorageKey);
-    localStorage.removeItem(this.holidaysStorageKey);
-
-    // Reset BehaviorSubjects
-    this.maintenanceDaysSubject.next([]);
-    this.holidaysSubject.next([]);
-    console.log('All special days cleared from local storage.');
+  // Methods for Tables
+  getTables(): Observable<{ tableNumber: number; maxCapacity: number }[]> {
+    return this.tablesSubject.asObservable();
   }
 
-  // Methods to Handle Local Storage
-
-  private saveToLocalStorage(): void {
-    try {
-      const maintenanceDays = this.maintenanceDaysSubject.getValue();
-      const holidays = this.holidaysSubject.getValue();
-      const reservations = this.reservationsSubject.getValue();
-
-      // Save maintenance days
-      localStorage.setItem(this.maintenanceStorageKey, JSON.stringify(maintenanceDays));
-
-      // Save holidays
-      localStorage.setItem(this.holidaysStorageKey, JSON.stringify(holidays));
-
-      // Save reservations
-      localStorage.setItem(this.reservationsStorageKey, JSON.stringify(reservations));
-    } catch (error) {
-      console.error('Error saving to local storage:', error);
-    }
+  loadTables(): void {
+    this.http.get<{ tableNumber: number; maxCapacity: number }[]>(`${this.apiUrl}/tables`)
+      .pipe(
+        tap(tables => this.tablesSubject.next(tables)),
+        catchError(error => {
+          console.error('Error loading tables:', error);
+          return of([]);
+        })
+      ).subscribe();
   }
 
-  private loadFromLocalStorage(): void {
-    try {
-      // Load and update maintenance days
-      const storedMaintenanceDays = localStorage.getItem(this.maintenanceStorageKey);
-      if (storedMaintenanceDays) {
-        this.maintenanceDaysSubject.next(JSON.parse(storedMaintenanceDays));
-      }
-
-      // Load and update holidays
-      const storedHolidays = localStorage.getItem(this.holidaysStorageKey);
-      if (storedHolidays) {
-        this.holidaysSubject.next(JSON.parse(storedHolidays));
-      }
-
-      // Load and update reservations
-      const storedReservations = localStorage.getItem(this.reservationsStorageKey);
-      if (storedReservations) {
-        this.reservationsSubject.next(JSON.parse(storedReservations));
-      }
-    } catch (error) {
-      console.error('Error loading from local storage:', error);
-    }
+  // Clear All Special Days
+  clearAllSpecialDays(): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/specialDays/all`)
+      .pipe(
+        tap(() => {
+          this.loadMaintenanceDays();
+          this.loadHolidays();
+        }),
+        catchError(error => {
+          console.error('Error clearing all special days:', error);
+          return of();
+        })
+      );
   }
 }

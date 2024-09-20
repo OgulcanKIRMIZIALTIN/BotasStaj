@@ -64,4 +64,7 @@ export class AdminComponent implements OnInit {
   goToAyarlar(): void {
     this.router.navigate(['/ayarlama']);
   }
+  goToBakAyarlar(): void {
+    this.router.navigate(['/bak-ayarlama']);
+  }
 }

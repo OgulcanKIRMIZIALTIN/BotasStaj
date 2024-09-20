@@ -20,7 +20,13 @@
     <!-- Area selection -->
     <div class="form-group">
       <label for="area">Bölge Seçimi:</label>
-      <select id="area" [(ngModel)]="selectedArea" name="selectedArea" (change)="onAreaChange()" required>
+      <select
+        id="area"
+        [(ngModel)]="selectedArea"
+        name="selectedArea"
+        (change)="onAreaChange()"
+        required
+      >
         <option value="Main">Ana Restoran</option>
         <option value="Balcony">Balkon</option>
       </select>
@@ -29,9 +35,17 @@
     <!-- Table selection (dynamic based on area and date) -->
     <div *ngIf="isDateSelected && availableTables.length > 0" class="form-group">
       <label for="tableNumber">Masa Numarası:</label>
-      <select id="tableNumber" [(ngModel)]="reservation.tableNumber" name="tableNumber" required>
-        <option *ngFor="let table of availableTables" [value]="table">
-          Masa {{table}} (Kapasite: {{ getTableCapacity(table) }} kişi)
+      <select
+        id="tableNumber"
+        [(ngModel)]="reservation.tableNumber"
+        name="tableNumber"
+        required
+      >
+        <option
+          *ngFor="let table of availableTables"
+          [value]="table.tableNumber"
+        >
+          Masa {{ table.tableNumber }} (Kapasite: {{ table.maxCapacity }} kişi)
         </option>
       </select>
     </div>
@@ -52,7 +66,12 @@
     <!-- Time period selection -->
     <div *ngIf="isDateSelected" class="form-group">
       <label for="timePeriod">Zaman Dilimi:</label>
-      <select id="timePeriod" [(ngModel)]="reservation.timePeriod" name="timePeriod" required>
+      <select
+        id="timePeriod"
+        [(ngModel)]="reservation.timePeriod"
+        name="timePeriod"
+        required
+      >
         <option *ngFor="let period of availableTimePeriods()" [value]="period">
           {{ period }}
         </option>

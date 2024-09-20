@@ -1,1 +1,1 @@
-Sayfaların CSS kodları bu sayfada
+Sayfaların CSS kodları bu sayfada adları ilgili sayfalardan aldılar

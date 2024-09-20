@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BookingService } from './booking.service'; // Ensure this path is correct
-
+import { BookingService } from './booking.service';
 @NgModule({
   imports: [
     CommonModule

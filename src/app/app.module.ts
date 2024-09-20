@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,6 +10,7 @@ import { AdminComponent } from './TheScripts/admin.component';
 import { AdminGirisComponent } from './TheScripts/admingiris.component';
 import { AnaSayfaComponent } from './TheScripts/anaSayfa.component';
 import { AyarlamaComponent } from './TheScripts/ayarlama.component';
+import { BakAyarlamaComponent } from './TheScripts/bak-ayarlama.component';
 import { GirisComponent } from './TheScripts/giris.component';
 import { KayitliRezervasyonlarComponent } from './TheScripts/KayitliRezervasyonlar.component';
 import { RezervasyonFormComponent } from './TheScripts/rezervasyonForm.component';
@@ -22,11 +24,13 @@ import { RezervasyonFormComponent } from './TheScripts/rezervasyonForm.component
     GirisComponent,
     KayitliRezervasyonlarComponent,
     RezervasyonFormComponent,
-    AyarlamaComponent
+    AyarlamaComponent,
+    BakAyarlamaComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule, // Add HttpClientModule here
     AppRoutingModule
   ],
   providers: [],
