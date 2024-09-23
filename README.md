@@ -1,2 +1,2 @@
 # BotasStaj
-Staj uygulama
+Rezervasyon uygulama
