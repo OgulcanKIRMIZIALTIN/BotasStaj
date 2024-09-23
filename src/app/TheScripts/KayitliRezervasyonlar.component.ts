@@ -26,15 +26,6 @@ export class KayitliRezervasyonlarComponent implements OnInit {
     });
   }
 
-  deleteReservation(reservation: Booking): void {
-    if (confirm('Bu rezervasyonu silmek istediğinizden emin misiniz?')) {
-      this.bookingService.deleteReservation(reservation).subscribe(() => {
-        this.reservations = this.reservations.filter(r => r !== reservation);
-        alert('Rezervasyon başarıyla silindi.');
-      });
-    }
-  }
-
   goToPage3(): void {
     this.router.navigate(['/rezervasyonForm']);
   }

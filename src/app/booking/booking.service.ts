@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Booking } from './booking.model'; // Adjust the path to your Booking model if necessary
+import { Booking } from './booking.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +30,7 @@ export class BookingService {
   }
 
   loadMaintenanceDays(): void {
-    this.http.get<{ date: string; area: 'Both' | 'Main' | 'Balcony' }[]>(`${this.apiUrl}/maintenanceDays`)
+this.http.get<{ date: string, area: 'Both' | 'Main' | 'Balcony' }[]>(`${this.apiUrl}/maintenanceDays`)
       .pipe(
         tap(maintenanceDays => this.maintenanceDaysSubject.next(maintenanceDays)),
         catchError(error => {

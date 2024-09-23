@@ -1,1 +1,0 @@
-Form işlemleri için gerekli olan folder kayıt için gerekli parametreler ve şimdilik lokalde kayıt kullanımı

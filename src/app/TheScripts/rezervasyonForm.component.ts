@@ -18,6 +18,7 @@ export class RezervasyonFormComponent implements OnInit {
     description: '',
   };
   availableTables: { tableNumber: number, maxCapacity: number }[] = [];
+  allTables: { tableNumber: number, maxCapacity: number }[] = []; // To store all tables loaded from backend
   selectedArea: 'Balcony' | 'Main' | null = null;
   maintenanceDays: { date: string, area: 'Both' | 'Main' | 'Balcony' }[] = [];
   holidays: { date: string, area: 'Both' | 'Main' | 'Balcony' }[] = [];
@@ -47,12 +48,12 @@ export class RezervasyonFormComponent implements OnInit {
   // Triggered when the date changes
   onDateChange(): void {
     this.isDateSelected = true;
-    this.getAvailableTables();
+    this.filterAvailableTables();
   }
 
   // Triggered when the selected area changes
   onAreaChange(): void {
-    this.getAvailableTables();
+    this.filterAvailableTables();
     this.loadMaintenanceDays();
     this.loadHolidays();
   }
@@ -93,16 +94,24 @@ export class RezervasyonFormComponent implements OnInit {
     return true;
   }
 
-  // Get available tables based on date and selected area
-  getAvailableTables(): void {
+  // Filter available tables based on date and selected area
+  filterAvailableTables(): void {
+    if (!this.selectedArea) {
+      this.availableTables = [];
+      return;
+    }
+
+    // Initially, set availableTables to allTables loaded from backend
+    this.availableTables = this.allTables;
+
     if (this.reservation.date) {
       const selectedDate = new Date(this.reservation.date);
 
       // Check if the selected date is a maintenance day
-      if (this.isMaintenanceDay(selectedDate, this.selectedArea!)) {
+      if (this.isMaintenanceDay(selectedDate, this.selectedArea)) {
         this.availableTables = [];
       } else {
-        // Filter tables based on the selected area
+        // Apply area-based filtering on top of the existing tables
         if (this.selectedArea === 'Balcony') {
           this.availableTables = this.availableTables.filter(
             table => table.tableNumber >= 18 && table.tableNumber <= 24
@@ -113,26 +122,25 @@ export class RezervasyonFormComponent implements OnInit {
           );
         }
 
-        // Restrict reservations to 'Akşam' on weekdays unless it's a holiday
-        if (this.isWeekday(selectedDate) && !this.isHoliday(selectedDate, this.selectedArea!)) {
+        // Automatically set the time period to 'Akşam' for weekdays that are not holidays
+        if (this.isWeekday(selectedDate) && !this.isHoliday(selectedDate, this.selectedArea)) {
           this.reservation.timePeriod = 'Akşam';
         }
       }
-    } else {
-      this.availableTables = [];
     }
   }
 
   // Load available tables from the BookingService
   loadAvailableTables(): void {
     this.bookingService.getTables().subscribe(tables => {
-      this.availableTables = tables;
+      this.allTables = tables; // Store all tables from the backend
+      this.availableTables = this.allTables; // Initially show all tables before filtering
     });
   }
 
   // Get the maximum capacity of a specific table
   getTableCapacity(tableNumber: number): number {
-    const table = this.availableTables.find(t => t.tableNumber === tableNumber);
+    const table = this.allTables.find(t => t.tableNumber === tableNumber);
     return table ? table.maxCapacity : 0;
   }
 
@@ -167,14 +175,14 @@ export class RezervasyonFormComponent implements OnInit {
   // Load maintenance days from the BookingService
   loadMaintenanceDays(): void {
     this.bookingService.getMaintenanceDays().subscribe((maintenanceDays: { date: string, area: 'Both' | 'Main' | 'Balcony' }[]) => {
-      this.maintenanceDays = maintenanceDays.filter(day => day.area === this.selectedArea || day.area === 'Both');
+      this.maintenanceDays = maintenanceDays;
     });
   }
 
   // Load holidays from the BookingService
   loadHolidays(): void {
     this.bookingService.getHolidays().subscribe((holidays: { date: string, reason: string, area: 'Both' | 'Main' | 'Balcony' }[]) => {
-      this.holidays = holidays.filter(holiday => holiday.area === this.selectedArea || holiday.area === 'Both');
+      this.holidays = holidays;
     });
   }
 
@@ -190,6 +198,7 @@ export class RezervasyonFormComponent implements OnInit {
     };
     this.isDateSelected = false;
     this.selectedArea = null;
+    this.availableTables = this.allTables; // Reset tables to the full list
   }
 
   // Navigate to the home page
