@@ -40,3 +40,21 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+# Additional files and folders to ignore
+
+# Backup or unnecessary files and folders
+Frontend - Kopya/
+Frontend eski/
+Frontend eski.zip
+Frontend/BotasStaj/
+Menschen A1-1 KB [einfach.ir].pdf
+Staj Degerlendirme Son.doc
+Webdüzeltme - v*
+33515_O_ulcan_KIRMIZIALTIN_SE499_InternReport_301396_519494461.docx
+BotasStaj-WithBackendv1.zip
+
+# Ignore other miscellaneous files
+*.zip
+*.pdf
+*.doc
+*.docx
