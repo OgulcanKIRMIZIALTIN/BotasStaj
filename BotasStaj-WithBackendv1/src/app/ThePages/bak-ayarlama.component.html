@@ -1,0 +1,47 @@
+<div class="bak-ayarlama-container">
+  <h1>Bakım Günleri Yönetimi</h1>
+
+  <!-- Maintenance Day Management Section -->
+  <div class="maintenance-day-management">
+    <h2>Bakım Günleri Ekle</h2>
+    <label for="startDate">Başlangıç Tarihi:</label>
+    <input type="date" id="startDate" [(ngModel)]="startDate">
+
+    <label for="endDate">Bitiş Tarihi:</label>
+    <input type="date" id="endDate" [(ngModel)]="endDate">
+
+    <label for="area">Alan:</label>
+    <select id="area" [(ngModel)]="newMaintenanceDay.area">
+      <option value="Both">Her İki Alan</option>
+      <option value="Main">Ana Salon</option>
+      <option value="Balcony">Balkon</option>
+    </select>
+
+    <button (click)="addMaintenanceDayRange()">Bakım Günleri Ekle</button>
+  </div>
+
+  <!-- List of Maintenance Days -->
+  <div class="maintenance-days-list">
+    <h2>Mevcut Bakım Günleri</h2>
+    <ul>
+      <li *ngFor="let day of maintenanceDays">
+        Tarih: {{ day.date }}, Alan: {{ day.area }}
+        <button (click)="deleteMaintenanceDay(day.date, day.area)">Sil</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Clear Options Section -->
+  <div class="clear-options">
+    <h2>Temizleme Seçenekleri</h2>
+    <button (click)="clearAllMaintenanceDays()">Tüm Bakım Günlerini Sil</button>
+    <button (click)="clearAllSpecialDays()">Tüm Özel Günleri (Bakım ve Tatil) Sil</button>
+  </div>
+
+  <!-- Navigation Section -->
+  <div class="navigation-buttons">
+    <button (click)="goToPageAnaSayfa()">Ana Sayfaya Git</button>
+    <button (click)="goToAdmin()">Yönetici Paneline Git</button>
+    <button (click)="goTootherAyarlama()">Tatiller Ayarlama Sayfasına Git</button>
+  </div>
+</div>

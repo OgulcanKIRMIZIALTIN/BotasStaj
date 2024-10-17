@@ -1,0 +1,115 @@
+/* Ensure full height and remove default margins */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean, formal font */
+}
+
+/* Container for the login form */
+.login-container {
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+  align-items: center;
+  padding: 20px;
+  background-image: url("/assets/ImagesFolder/BotasGirisArkaPlan.jpg"); /* Updated image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box; /* Include padding in width and height calculations */
+}
+
+/* Styling for login sections */
+.login-section {
+  width: 100%;
+  max-width: 600px; /* Reduced max-width for better focus */
+  padding: 30px; /* Increased padding for a more spacious look */
+  border-radius: 10px; /* More rounded corners for a polished appearance */
+  background-color: rgba(0, 0, 0, 0.75); /* Darker, semi-transparent background for better readability */
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+}
+
+/* Header styling in login section */
+.login-section h2 {
+  text-align: center;
+  font-size: 1.8em; /* Larger heading for prominence */
+  color: #ffffff; /* White for clear contrast */
+  margin-bottom: 20px;
+}
+
+/* Form group styling */
+.login-section .form-group {
+  margin-bottom: 20px; /* More space between form groups */
+}
+
+/* Label styling */
+.login-section .form-group label {
+  display: block;
+  margin-bottom: 8px; /* More space below labels */
+  font-weight: bold;
+  color: #d83a3a; /* Turkish red for labels */
+}
+
+/* Input field styling */
+.login-section .form-group input {
+  width: 100%;
+  padding: 12px; /* Increased padding for better usability */
+  border: 1px solid #d83a3a; /* Red border for a Turkish feel */
+  border-radius: 5px;
+  font-size: 1rem; /* Larger, consistent font size */
+  background-color: rgba(255, 255, 255, 0.7); /* Slightly more transparent white background */
+  color: #000000; /* Black text for better readability */
+}
+
+/* Login button styling */
+.login-section .login-button {
+  display: block;
+  width: 100%;
+  max-width: 150px; /* Set a max-width for a smaller, more compact button */
+  padding: 10px; /* Reduced padding for a more compact look */
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem; /* Slightly smaller font size */
+  color: #ffffff; /* White text for contrast */
+  background-color: rgba(28, 168, 183, 0.9); /* Turkish red with 90% opacity */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 0 auto; /* Center the button horizontally */
+}
+
+.login-section .login-button:hover {
+  background-color: rgba(103, 29, 16, 0.9); /* Lighter color with 90% opacity on hover */
+  transform: translateY(-2px);
+}
+
+/* Navigation button styling */
+.nav-button {
+  display: block;
+  width: 100%;
+  padding: 14px; /* Consistent padding with login button */
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(52, 94, 145, 0.8); /* Dark gray with 80% opacity */
+  color: white;
+  cursor: pointer;
+  font-size: 1rem; /* Consistent font size */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px; /* Add spacing between buttons */
+}
+
+.nav-button:hover {
+  background-color: rgba(37, 73, 11, 1); /* Darker gray with 100% opacity on hover */
+  transform: translateY(-2px);
+}
+
+/* Specific styling for sections */
+.kullanici-girisi {
+  margin-top: 0; /* Keep aligned at the top */
+}
+
+.anayasa-btn {
+  margin-top: 20px; /* Centered at the bottom */
+}

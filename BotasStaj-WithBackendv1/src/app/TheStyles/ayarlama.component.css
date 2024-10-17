@@ -1,0 +1,105 @@
+/* Apply background image to the entire page */
+:host {
+  display: block; /* Ensure the host element fills the entire page */
+  width: 100%;
+  height: 100vh; /* Set height to 100% of viewport height */
+  background-image: url('/assets/ImagesFolder/BotasAyarlarArkaPlan.jpg'); /* Background image */
+  background-size: cover; /* Ensure the background image covers the entire area */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  margin: 0;
+  padding: 0;
+  color: white; /* Set text color to white for better contrast */
+}
+
+/* Overall container for the ayarlama page */
+.ayarlama-container {
+  max-width: 800px; /* Max width for the container */
+  margin: 0 auto; /* Center align the container */
+  padding: 30px; /* Padding for spacing */
+  background-color: rgba(0, 0, 0, 0.75); /* Darker background for better readability */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+
+/* Center align the main heading */
+h2 {
+  text-align: center;
+  color: #f5f5f5; /* Light gray for the heading */
+  margin-bottom: 20px; /* Space below the heading */
+  font-size: 2rem; /* Larger heading */
+}
+
+/* Section headings */
+h3 {
+  color: #f5f5f5; /* Light gray for section headings */
+  margin-bottom: 10px; /* Space below section headings */
+  font-size: 1.5rem; /* Slightly larger font size */
+}
+
+/* Form group styling */
+div {
+  margin-bottom: 20px; /* Space between sections */
+}
+
+/* Label styling */
+label {
+  display: block;
+  margin-bottom: 8px; /* Space below labels */
+  font-weight: bold;
+  color: #f5f5f5; /* Light gray for labels */
+}
+
+/* Input, select, and textarea styling */
+input, select, textarea {
+  width: 100%;
+  padding: 12px; /* Padding for better usability */
+  border: 1px solid #f5f5f5; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Include padding in width */
+  font-size: 1rem; /* Consistent font size */
+  margin-top: 5px; /* Space between label and input */
+  background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent white background */
+  color: #fff; /* White text color for better readability */
+}
+
+/* Ensure options are visible in the dropdown */
+option {
+  background-color: rgba(33, 64, 91, 0.9); /* Deep blue background */
+  color: white; /* White text */
+}
+
+/* Button styling */
+button {
+  background-color: rgba(183, 28, 28, 0.9); /* Turkish red background */
+  color: white;
+  padding: 12px 20px; /* Padding for better clickability */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem; /* Consistent font size */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: rgba(8, 249, 249, 0.9); /* Deep blue on hover */
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+/* Button for navigating to the home page */
+button.nav-button {
+  background-color: rgba(183, 28, 28, 0.9); /* Turkish red background */
+  color: white;
+  padding: 10px 15px; /* Smaller padding for secondary button */
+  margin-top: 20px; /* Space above the button */
+  display: block;
+  width: 100%; /* Full-width button */
+  text-align: center; /* Center align text */
+  border-radius: 5px; /* Rounded corners */
+}
+
+button.nav-button:hover {
+  background-color: rgba(8, 249, 249, 0.9); /* Light blue on hover */
+}

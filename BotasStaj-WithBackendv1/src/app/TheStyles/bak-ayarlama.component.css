@@ -1,0 +1,135 @@
+/* General Container Styling */
+.bak-ayarlama-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Heading Styles */
+h1, h2 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+}
+
+h2 {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+/* Maintenance Day Management Section */
+.maintenance-day-management {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.maintenance-day-management label {
+  font-weight: bold;
+  color: #555;
+}
+
+.maintenance-day-management input[type="date"],
+.maintenance-day-management select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.maintenance-day-management button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.maintenance-day-management button:hover {
+  background-color: #218838;
+}
+
+/* List of Maintenance Days */
+.maintenance-days-list {
+  margin-bottom: 20px;
+}
+
+.maintenance-days-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.maintenance-days-list li {
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.maintenance-days-list li button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.maintenance-days-list li button:hover {
+  background-color: #c82333;
+}
+
+/* Clear Options Section */
+.clear-options {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.clear-options button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.clear-options button:hover {
+  background-color: #e0a800;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.navigation-buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.navigation-buttons button:hover {
+  background-color: #0056b3;
+}

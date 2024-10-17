@@ -1,0 +1,35 @@
+<!-- Container for displaying reservations -->
+<div class="reservations-container">
+  <!-- Header for the reservations page -->
+  <h2>Rezervasyonlarım</h2>
+
+  <!-- Table displaying reservation details -->
+  <table>
+    <thead>
+      <tr>
+        <!-- Table headers -->
+        <th>Masa Numarası</th>
+        <th>İnsan sayısı</th>
+        <th>Rezervasyon Günü</th>
+        <th>Zaman Dilimi</th>
+        <th>Rezervasyon Nedeni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Loop through reservations to create table rows -->
+      <tr *ngFor="let reservation of reservations">
+        <td>{{ reservation.tableNumber }}</td>
+        <td>{{ reservation.numPeople }}</td>
+        <td>{{ reservation.date }}</td>
+        <td>{{ reservation.timePeriod }}</td>
+        <td>{{ reservation.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Button to navigate back to the reservations page -->
+  <button class="rezervasyon-button" (click)="goToPage3()">Rezervasyon sayfasına dön</button>
+
+  <!-- Button to navigate back to the login page -->
+  <button class="giris-button" (click)="goToPage2()">Giriş sayfasına dön</button>
+</div>

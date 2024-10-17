@@ -1,0 +1,102 @@
+<div class="ayarlama-container">
+  <!-- Header for the settings page -->
+  <h2>Ayarlama Sayfası</h2>
+
+  <!-- Section for adding holidays with date range -->
+  <div class="holiday-section">
+    <h3>Tatil Aralığı Ekle</h3>
+
+    <!-- Start date selection -->
+    <label for="holidayStartDate">Başlangıç Tarihi:</label>
+    <input
+      id="holidayStartDate"
+      [(ngModel)]="startDate"
+      type="date"
+      placeholder="Başlangıç tarihi seçin"
+      required
+    />
+
+    <!-- End date selection -->
+    <label for="holidayEndDate">Bitiş Tarihi:</label>
+    <input
+      id="holidayEndDate"
+      [(ngModel)]="endDate"
+      type="date"
+      placeholder="Bitiş tarihi seçin"
+      required
+    />
+
+    <!-- Input for holiday reason -->
+    <label for="holidayReason">Neden:</label>
+    <input
+      id="holidayReason"
+      [(ngModel)]="newHoliday.reason"
+      type="text"
+      placeholder="Tatil nedeni giriniz"
+      required
+    />
+
+    <!-- Dropdown for selecting area (Both, Main Restaurant, Balcony) -->
+    <label for="holidayArea">Bölge Seçimi:</label>
+    <select id="holidayArea" [(ngModel)]="newHoliday.area">
+      <option value="Both">Her İkisi</option>
+      <option value="Main">Ana Restoran</option>
+      <option value="Balcony">Balkon</option>
+    </select>
+
+    <!-- Button to add holidays for the selected range -->
+    <button class="btn-add-holiday-range" (click)="addHolidayRange()">Tatil Aralığı Ekle</button>
+
+    <!-- Conflicting days notification -->
+    <div *ngIf="conflictingDays.length > 0" class="conflict-notification">
+      <p>Çakışan Günler: {{ conflictingDays.join(', ') }}</p>
+    </div>
+
+    <!-- List of holidays with options to delete -->
+    <h4>Mevcut Tatiller</h4>
+
+    <div class="holiday-list">
+      <h5>Tüm Tatiller</h5>
+      <ul>
+        <li *ngFor="let holiday of holidays">
+          {{ holiday.date }} - {{ holiday.reason }} ({{ holiday.area }})
+          <button (click)="deleteHoliday(holiday.date, holiday.area)">Sil</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Button to clear all holidays -->
+    <div class="clear-holidays-section">
+      <h4>Tüm Tatilleri Sil</h4>
+      <button class="btn-clear-holidays" (click)="clearAllHolidays()">Tüm Tatilleri Sil</button>
+    </div>
+  </div>
+
+  <!-- List of maintenance days with options to delete (no adding functionality) -->
+  <div class="maintenance-section">
+    <h3>Mevcut Bakım Günleri</h3>
+
+    <div class="maintenance-list">
+      <h5>Tüm Bakım Günleri</h5>
+      <ul>
+        <li *ngFor="let day of maintenanceDays">
+          {{ day.date }} ({{ day.area }})
+          <button (click)="deleteMaintenanceDay(day.date, day.area)">Sil</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Special button to clear all special days -->
+  <div class="clear-special-days-section">
+    <h3>Tüm Özel Günleri Sil</h3>
+    <button class="btn-clear-all" (click)="clearAllSpecialDays()">Tüm Özel Günleri Sil</button>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="navigation-buttons">
+    <button class="btn-nav" (click)="goToPageAnaSayfa()">Ana Sayfaya Dön</button>
+    <button class="btn-nav" (click)="goToAdmin()">Yönetici Paneline Dön</button>
+    <button class="btn-nav" (click)="goTootherAyarlama()">Bakım Ayarlama Sayfasına Git</button>
+  </div>
+</div>
